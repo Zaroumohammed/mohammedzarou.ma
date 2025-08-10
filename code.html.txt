@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jean Dupont - Analyste Logistique & Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a2b47;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff7f50;
+            --text-color: #333;
+            --light-gray: #e9ecef;
+            --dark-gray: #495057;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #1a2b47 0%, #2c3e50 100%);
+            --gradient-accent: linear-gradient(135deg, #ff7f50 0%, #ff9966 100%);
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.03)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--secondary-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 100px 0;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .skill-category {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 100px 0;
+            background-color: var(--secondary-color);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--light-gray);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+        }
+
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.9;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .project-overlay-content {
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
+
+        .project-overlay-content h4 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .project-overlay-content p {
+            margin-bottom: 20px;
+        }
+
+        .project-overlay-content .btn {
+            background: var(--gradient-accent);
+            padding: 10px 25px;
+            font-size: 14px;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .project-info p {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .project-tag {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: var(--secondary-color);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .blog-img img {
+            transform: scale(1.1);
+        }
+
+        .blog-info {
+            padding: 20px;
+        }
+
+        .blog-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .blog-meta {
+            color: var(--dark-gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blog-info p {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 19px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Jean<span>Dupont</span></div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#skills">Compétences</a></li>
+                    <li><a href="#experience">Expériences</a></li>
+                    <li><a href="#projects">Projets</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Jean Dupont</h1>
+                <p class="subtitle">Analyste Logistique & Data - Optimisation des Supply Chains</p>
+                <p>Je transforme les données en insights actionnables pour optimiser les processus logistiques et réduire les coûts opérationnels.</p>
+                <div class="cta-buttons">
+                    <a href="cv-jean-dupont.pdf" download class="btn btn-primary">
+                        <i class="fas fa-download"></i> Télécharger mon CV
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> Me contacter
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Années d'expérience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projets réalisés</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25%</span>
+                        <span class="stat-label">Réduction coûts moyenne</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>À propos de moi</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-img fade-in">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Jean Dupont">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Mon parcours</h3>
+                    <p>Diplômé d'un Master en Supply Chain Management de l'Université Paris Dauphine, j'ai commencé ma carrière chez Amazon comme analyste logistique où j'ai développé une expertise dans l'optimisation des flux de stock et la réduction des coûts opérationnels.</p>
+                    <p>Au cours des 5 dernières années, j'ai travaillé avec plusieurs entreprises du CAC 40 pour implémenter des solutions data-driven qui ont permis de réduire les coûts logistiques de 20% en moyenne tout en améliorant la satisfaction client.</p>
+                    <h3>Mes valeurs</h3>
+                    <p>Je crois fermement en la puissance de l'analyse de données pour résoudre les problèmes complexes. Mon approche repose sur trois piliers : la rigueur méthodologique, l'innovation continue et le respect des ressources humaines dans tous les processus d'optimisation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Mes compétences</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category fade-in">
+                    <h3>Compétences Techniques</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Excel avancé</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Power BI</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>SAP</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>SQL</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Python</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3>Compétences Linguistiques</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Français</span>
+                                <span>Natif</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Anglais</span>
+                                <span>Courant</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Espagnol</span>
+                                <span>Intermédiaire</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 65%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3>Compétences Personnelles</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Rigueur</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Esprit d'analyse</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Sens de l'organisation</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Travail en équipe</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Expériences professionnelles</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 - Présent</span>
+                        <h3>Analyste Logistique Senior</h3>
+                        <h4>Carrefour France</h4>
+                        <p>Optimisation des flux logistiques pour 150 hypermarchés. Mise en place d'un tableau de bord Power BI qui a permis de réduire les ruptures de stock de 30%. Pilotage de projets d'amélioration continue avec les équipes terrain.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2019 - 2021</span>
+                        <h3>Analyste Supply Chain</h3>
+                        <h4>Saint-Gobain</h4>
+                        <p>Analyse des performances logistiques pour l'ensemble des sites industriels en Europe. Développement d'un modèle prédictif des besoins en stock qui a réduit les coûts de stockage de 15% tout en maintenant un taux de service élevé.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2018 - 2019</span>
+                        <h3>Business Analyst</h3>
+                        <h4>Amazon France</h4>
+                        <p>Optimisation des processus de préparation de commandes dans les centres de distribution. Analyse des données de production pour identifier les goulots d'étranglement et proposer des solutions d'amélioration.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2017 - 2018</span>
+                        <h3>Stagiaire Analyste Logistique</h3>
+                        <h4>Danone</h4>
+                        <p>Projet de fin d'études : analyse de l'impact de la digitalisation sur les performances de la supply chain. Création d'un outil d'évaluation des coûts logistiques intégrant les variables environnementales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Projets & Réalisations</h2>
+            </div>
+            <div class="projects-filter fade-in">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="logistics">Logistique</button>
+                <button class="filter-btn" data-filter="data">Data & Analytics</button>
+                <button class="filter-btn" data-filter="optimization">Optimisation</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in" data-category="data optimization">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Projet Dashboard">
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-overlay-content">
+                            <h4>Dashboard Supply Chain</h4>
+                            <p>Tableau de bord interactif Power BI</p>
+                            <a href="#" class="btn">Voir les détails</a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Dashboard Supply Chain Centralisé</h3>
+                        <p>Création d'un tableau de bord Power BI centralisé pour suivre les KPI logistiques de 50 sites industriels. Le dashboard permet de visualiser en temps réel les performances et d'identifier rapidement les anomalies.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Power BI</span>
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">Supply Chain</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in" data-category="logistics optimization">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Projet Optimisation">
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-overlay-content">
+                            <h4>Optimisation Stock</h4>
+                            <p>Réduction des coûts de stockage</p>
+                            <a href="#" class="btn">Voir les détails</a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Optimisation des niveaux de stock</h3>
+                        <p>Développement d'un algorithme de prévision de la demande basé sur le machine learning qui a permis de réduire les coûts de stockage de 20% tout en maintenant un taux de service de 98%.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Machine Learning</span>
+                            <span class="project-tag">SAP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in" data-category="logistics">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Projet Simulation">
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-overlay-content">
+                            <h4>Simulation Flux</h4>
+                            <p>Modélisation des processus logistiques</p>
+                            <a href="#" class="btn">Voir les détails</a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Simulation des flux logistiques</h3>
+                        <p>Création d'un modèle de simulation discrete avec AnyLogic pour évaluer l'impact potentiel de différents scénarios d'aménagement d'un entrepôt. Le modèle a permis d'identifier une configuration optimale réduisant les temps de picking de 25%.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">AnyLogic</span>
+                            <span class="project-tag">Simulation</span>
+                            <span class="project-tag">Entrepôt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Blog</h2>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card fade-in">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Article 1">
+                    </div>
+                    <div class="blog-info">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> 15 juin 2023
+                        </div>
+                        <h3>Les 5 KPI essentiels pour évaluer la performance logistique</h3>
+                        <p>Découvrez les indicateurs clés à surveiller pour optimiser vos opérations logistiques et améliorer votre efficacité opérationnelle.</p>
+                        <a href="#" class="btn btn-primary">Lire l'article</a>
+                    </div>
+                </div>
+                <div class="blog-card fade-in">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Article 2">
+                    </div>
+                    <div class="blog-info">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> 5 mai 2023
+                        </div>
+                        <h3>Comment Power BI révolutionne le pilotage de la Supply Chain</h3>
+                        <p>Exploration des fonctionnalités de Power BI qui permettent de créer des tableaux de bord performants pour le suivi des activités logistiques.</p>
+                        <a href="#" class="btn btn-primary">Lire l'article</a>
+                    </div>
+                </div>
+                <div class="blog-card fade-in">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Article 3">
+                    </div>
+                    <div class="blog-info">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> 20 avril 2023
+                        </div>
+                        <h3>Optimisation des stocks avec l'analyse prédictive</h3>
+                        <p>Introduction aux techniques d'analyse prédictive pour améliorer la gestion des stocks et réduire les coûts tout en maintenant la qualité de service.</p>
+                        <a href="#" class="btn btn-primary">Lire l'article</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Contact</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info fade-in">
+                    <h3>Informations de contact</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>jean.dupont@email.fr</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Téléphone</h4>
+                                <p>+33 6 12 34 56 78</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Localisation</h4>
+                                <p>Paris, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/jeandupont" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/jeandupont" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Jean Dupont</h3>
+                    <p>Analyste Logistique & Data avec 5+ années d'expérience dans l'optimisation des processus logistiques et l'analyse de données.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liens rapides</h3>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#skills">Compétences</a></li>
+                        <li><a href="#experience">Expériences</a></li>
+                        <li><a href="#projects">Projets</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Abonnez-vous pour recevoir les dernières actualités et articles.</p>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Votre email" required>
+                            <button type="submit" class="btn btn-primary">S'abonner</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Jean Dupont. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav ul li a').forEach(item => {
+            item.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const faders = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -100px 0px"
+        };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+        
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // Back to top button
+        const backToTopBtn = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Project filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        const newsletterForm = document.getElementById('newsletterForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server
+            alert('Merci pour votre message! Je vous répondrai dans les plus brefs délais.');
+            contactForm.reset();
+        });
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server
+            alert('Merci pour votre abonnement à la newsletter!');
+            newsletterForm.reset();
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-progress');
+        
+        const animateSkills = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => {
+            animateSkills.observe(bar);
+        });
+
+        // Add hover effect to timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        timelineItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.querySelector('.timeline-content').style.transform = 'scale(1.05)';
+                item.querySelector('.timeline-content').style.transition = 'transform 0.3s ease';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('.timeline-content').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
